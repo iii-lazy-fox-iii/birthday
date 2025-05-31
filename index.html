@@ -1,49 +1,93 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <script>
-  const targetDate = new Date('2025-05-30T08:00:00');
-  const now = new Date();
-
-  if (now < targetDate) {
-    // Если дата ещё не наступила — показываем заглушку
-    document.body.innerHTML = 
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;font-size:1.5rem;">
-        <p>Нет-нет, сюда пока нельзя...</p>
-        <p>Вернитесь 3 июня в 08:00</p>
-      </div>
-    ;
-  } else {
-    // Если дата наступила — загружаем основной сайт (ничего не делаем — дальше твой обычный код)
-  }
-</script>
-  <meta charset="UTF-8">
-  <title>Сюрприз</title>
+  <meta charset="UTF-8" />
+  <title>С Днём Рождения!</title>
   <style>
     body {
-      background-color: black;
-      color: lime;
-      font-family: monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-size: 1.5em;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
       text-align: center;
+      padding: 30px;
     }
-    .cursor {
-      animation: blink 1s steps(1) infinite;
+    input {
+      padding: 10px;
+      font-size: 18px;
+      width: 300px;
+      margin-top: 15px;
     }
-    @keyframes blink {
-      50% { opacity: 0; }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #f5a623;
+      border: none;
+      color: #000;
+      font-weight: bold;
+    }
+    .error {
+      color: #f00;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <div>
-    <p>👀 Нет-нет, сюда пока нельзя...</p>
-    <p>Вернитесь <strong>3 июня в 08:00</strong></p>
-    <p class="cursor">|</p>
-  </div>
+  <h1>С днём рождения!</h1>
+  <div id="content"></div>
+
+  <script>
+    const startDate = new Date('2025-06-03T08:00:00'); // 3 июня 8:00 утра
+    const now = new Date();
+
+    const contentDiv = document.getElementById('content');
+
+    if (now < startDate) {
+      // Ещё рано — показываем заставку ожидания
+      contentDiv.innerHTML = '<p>Нет-нет, сюда пока нельзя...<br>Вернитесь 3 июня в 08:00</p>';
+    } else {
+      // Показываем загадку (логарифмическое уравнение)
+      contentDiv.innerHTML = 
+        <p>Решите уравнение, чтобы открыть подарок:</p>
+        <p><strong>log₂(x) + log₂(x - 2) = 3</strong></p>
+        <input type="number" id="answer" placeholder="Введите x" />
+        <br />
+        <button onclick="checkAnswer()">Проверить</button>
+        <p id="error" class="error"></p>
+      ;
+
+      window.checkAnswer = function() {
+        const answer = parseFloat(document.getElementById('answer').value);
+        const errorP = document.getElementById('error');
+
+        // Проверим, что x > 2, чтобы логарифмы были определены
+        if (isNaN(answer)) {
+          errorP.textContent = 'Введите число!';
+          return;
+        }
+        if (answer <= 2) {
+          errorP.textContent = 'x должно быть больше 2!';
+          return;
+        }
+
+        // Проверка решения уравнения:
+        // log2(x) + log2(x-2) = 3
+        // по свойствам логарифмов: log2(x*(x-2)) = 3
+        // => x*(x-2) = 2^3 = 8
+        // => x^2 - 2x - 8 = 0
+        // Решаем квадратное уравнение: x = (2 ± sqrt(4 + 32))/2 = (2 ± 6)/2
+        // Корни: (2 + 6)/2=4 и (2 - 6)/2=-2 (не подходит, т.к. x>2)
+        // Значит правильный ответ: 4
+
+        if (Math.abs(answer - 4) < 0.0001) {
+          // Правильно! Переходим на hack.html
+          window.location.href = 'hack.html';
+        } else {
+          errorP.textContent = 'Неправильно, попробуйте снова.';
+        }
+      }
+    }
+  </script>
 </body>
 </html>
