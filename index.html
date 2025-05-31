@@ -2,91 +2,48 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>С Днём Рождения!</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>С днём рождения!</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
+      font-family: monospace;
+      background-color: black;
+      color: #00ff00;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       text-align: center;
-      padding: 30px;
-    }
-    input {
-      padding: 10px;
-      font-size: 18px;
-      width: 300px;
-      margin-top: 15px;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-      margin-top: 10px;
-      cursor: pointer;
-      background-color: #f5a623;
-      border: none;
-      color: #000;
-      font-weight: bold;
-    }
-    .error {
-      color: #f00;
-      margin-top: 15px;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>С днём рождения!</h1>
-  <div id="content"></div>
+  <div id="app">Проверка даты...</div>
 
   <script>
-    const startDate = new Date('2025-06-03T00:00:01'); // 3 июня 8:00 утра
+    const app = document.getElementById("app");
+
+    // Устанавливаем дату и время разблокировки — 3 июня 08:00
+    const unlockDate = new Date("2025-06-03T08:00:00");
+
     const now = new Date();
 
-    const contentDiv = document.getElementById('content');
-
-    if (now < startDate) {
-      // Ещё рано — показываем заставку ожидания
-      contentDiv.innerHTML = '<p>Нет-нет, сюда пока нельзя...<br>Вернитесь 3 июня в 08:00</p>';
+    if (now < unlockDate) {
+      app.textContent = "нет-нет, сюда пока нельзя...\nВернитесь 3 июня в 08:00";
     } else {
-      // Показываем загадку (логарифмическое уравнение)
-      contentDiv.innerHTML = 
-        <p>Решите уравнение, чтобы открыть подарок:</p>
-        <p><strong>log₂(x) + log₂(x - 2) = 3</strong></p>
-        <input type="number" id="answer" placeholder="Введите x" />
-        <br />
-        <button onclick="checkAnswer()">Проверить</button>
-        <p id="error" class="error"></p>
-      ;
-
-      window.checkAnswer = function() {
-        const answer = parseFloat(document.getElementById('answer').value);
-        const errorP = document.getElementById('error');
-
-        // Проверим, что x > 2, чтобы логарифмы были определены
-        if (isNaN(answer)) {
-          errorP.textContent = 'Введите число!';
-          return;
-        }
-        if (answer <= 2) {
-          errorP.textContent = 'x должно быть больше 2!';
-          return;
-        }
-
-        // Проверка решения уравнения:
-        // log2(x) + log2(x-2) = 3
-        // по свойствам логарифмов: log2(x*(x-2)) = 3
-        // => x*(x-2) = 2^3 = 8
-        // => x^2 - 2x - 8 = 0
-        // Решаем квадратное уравнение: x = (2 ± sqrt(4 + 32))/2 = (2 ± 6)/2
-        // Корни: (2 + 6)/2=4 и (2 - 6)/2=-2 (не подходит, т.к. x>2)
-        // Значит правильный ответ: 4
-
-        if (Math.abs(answer - 4) < 0.0001) {
-          // Правильно! Переходим на hack.html
-          window.location.href = 'hack.html';
-        } else {
-          errorP.textContent = 'Неправильно, попробуйте снова.';
-        }
-      }
+      // Загружаем hack.html
+      fetch("hack.html")
+        .then(response => response.text())
+        .then(html => {
+          document.open();
+          document.write(html);
+          document.close();
+        })
+        .catch(error => {
+          app.textContent = "Упс... Что-то пошло не так. Попробуйте позже.";
+          console.error(error);
+        });
     }
   </script>
 </body>
