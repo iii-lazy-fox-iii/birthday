@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Реши, чтобы пройти дальше</title>
+  <style>
+    body { background-color: black; color: #00FF00; font-family: monospace; padding: 20px; }
+    input, button { font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>Реши уравнение: (x - 3)² = 49</h2>
+  <input type="text" id="answer" placeholder="Введите x" />
+  <button onclick="check()">Проверить</button>
+
+  <p id="result"></p>
+
+  <script>
+    function check() {
+      const answer = document.getElementById("answer").value.trim();
+      if (answer === "10" || answer === "-4") {
+        window.location.href = "hack.html";
+      } else {
+        document.getElementById("result").innerText = "Нет, подумай ещё :)";
+      }
+    }
+  </script>
+</body>
+</html>
