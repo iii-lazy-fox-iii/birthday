@@ -4,12 +4,27 @@
   <meta charset="UTF-8" />
   <title>Реши, чтобы пройти дальше</title>
   <style>
-    body { background-color: black; color: #00FF00; font-family: monospace; padding: 20px; }
-    input, button { font-size: 16px; }
+    body {
+      background-color: black;
+      color: #00FF00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    input, button {
+      font-size: 18px;
+      padding: 8px;
+      margin-top: 10px;
+    }
+    #result {
+      margin-top: 15px;
+      color: red;
+    }
   </style>
 </head>
 <body>
-  <h2>Реши уравнение: (x - 3)² = 49</h2>
+  <h2>🔐 Чтобы продолжить — реши уравнение:</h2>
+  <h3>(x - 3)<sup>2</sup> = 49</h3>
+
   <input type="text" id="answer" placeholder="Введите x" />
   <button onclick="check()">Проверить</button>
 
@@ -21,7 +36,7 @@
       if (answer === "10" || answer === "-4") {
         window.location.href = "hack.html";
       } else {
-        document.getElementById("result").innerText = "Нет, подумай ещё :)";
+        document.getElementById("result").innerText = "❌ Неверно, подумай ещё!";
       }
     }
   </script>
