@@ -22,14 +22,15 @@
   <div id="content">Проверка даты…</div>
 
   <script>
-    const targetDate = new Date('2025-06-03T08:00:00');
-    const now = new Date();
+  const now = new Date();
+  const unlockTime = new Date("2025-06-03T08:00:00");
 
-    if (now >= targetDate) {
-      window.location.href = "hack.html";
-    } else {
-      document.getElementById("content").innerText = "Нет-нет, сюда пока нельзя...\nВернитесь 3 июня в 08:00.";
-    }
+  if (now >= unlockTime) {
+    window.location.href = "riddle.html";
+  } else {
+    document.body.innerHTML = "Нет-нет, сюда пока нельзя... Вернитесь 3 июня в 08:00";
+  }
+</script>
   </script>
 </body>
 </html>
