@@ -3,47 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>С днём рождения!</title>
+  <title>Сайт закрыт до 3 июня</title>
   <style>
     body {
-      font-family: monospace;
+      margin: 0;
       background-color: black;
-      color: #00ff00;
+      color: white;
+      font-family: monospace;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       text-align: center;
-      padding: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="app">Проверка даты...</div>
+  <div id="content">Проверка даты…</div>
 
   <script>
-    const app = document.getElementById("app");
-
-    // Устанавливаем дату и время разблокировки — 3 июня 08:00
-    const unlockDate = new Date("2025-05-30T08:00:00");
-
+    const targetDate = new Date('2025-06-03T08:00:00');
     const now = new Date();
 
-    if (now < unlockDate) {
-      app.textContent = "нет-нет, сюда пока нельзя...\nВернитесь 3 июня в 08:00";
+    if (now >= targetDate) {
+      window.location.href = "hack.html";
     } else {
-      // Загружаем hack.html
-      fetch("hack.html")
-        .then(response => response.text())
-        .then(html => {
-          document.open();
-          document.write(html);
-          document.close();
-        })
-        .catch(error => {
-          app.textContent = "Упс... Что-то пошло не так. Попробуйте позже.";
-          console.error(error);
-        });
+      document.getElementById("content").innerText = "Нет-нет, сюда пока нельзя...\nВернитесь 3 июня в 08:00.";
     }
   </script>
 </body>
