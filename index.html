@@ -2,33 +2,32 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Сюрприз 🎁</title>
+  <title>Сюрприз</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fff8f0;
-      color: #333;
+      background-color: black;
+      color: lime;
+      font-family: monospace;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      padding: 40px;
-    }
-    h1 {
-      color: #e67e22;
-    }
-    .message {
-      max-width: 600px;
+      justify-content: center;
+      height: 100vh;
+      font-size: 1.5em;
       text-align: center;
-      margin-top: 20px;
+    }
+    .cursor {
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <h1>С Днём Рождения 🎉</h1>
-  <div class="message">
-    <p>Я хотела бы, чтобы вы никогда не забывали, как сильно вы повлияли на меня.</p>
-    <p>Пусть этот день будет наполнен улыбками, как тренировки были наполнены вашим светом и силой.</p>
-    <p>Спасибо за всё. Правда.</p>
+  <div>
+    <p>👀 Нет-нет, сюда пока нельзя...</p>
+    <p>Вернитесь <strong>3 июня в 08:00</strong></p>
+    <p class="cursor">|</p>
   </div>
 </body>
 </html>
