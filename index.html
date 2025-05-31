@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <script>
+  const targetDate = new Date('2025-06-03T08:00:00');
+  const now = new Date();
+
+  if (now < targetDate) {
+    // Если дата ещё не наступила — показываем заглушку
+    document.body.innerHTML = 
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;font-size:1.5rem;">
+        <p>Нет-нет, сюда пока нельзя...</p>
+        <p>Вернитесь 3 июня в 08:00</p>
+      </div>
+    ;
+  } else {
+    // Если дата наступила — загружаем основной сайт (ничего не делаем — дальше твой обычный код)
+  }
+</script>
   <meta charset="UTF-8">
   <title>Сюрприз</title>
   <style>
