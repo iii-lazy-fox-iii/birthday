@@ -2,81 +2,118 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Загадка</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Уравнение</title>
+  <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet" />
   <style>
     body {
-      background-color: #0d0d0d;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
       color: orange;
-      font-family: 'Jolly Lodger', cursive;
+      font-family: "Jolly Lodger", cursive;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       text-align: center;
-      margin: 0;
       overflow: hidden;
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      max-width: 90%;
-      word-wrap: break-word;
+      font-size: 48px;
+      margin: 20px;
+      animation: glitch 1s infinite;
+    }
+
+    .equation {
+      font-size: 32px;
+      margin: 20px;
+      animation: glitch 1.5s infinite;
     }
 
     input[type="text"] {
-      margin-top: 2rem;
-      padding: 0.5rem 1rem;
-      font-size: 1.2rem;
-      width: 300px;
-      border: none;
-      border-radius: 8px;
-      background-color: #1a1a1a;
+      padding: 10px;
+      font-size: 20px;
+      border: 2px solid orange;
+      background-color: #111;
       color: orange;
+      border-radius: 5px;
+      width: 220px;
       text-align: center;
-      font-family: 'Jolly Lodger', cursive;
-      animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0px orange; }
-      50% { box-shadow: 0 0 10px orange; }
-      100% { box-shadow: 0 0 0px orange; }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 20px;
+      background-color: orange;
+      color: black;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    audio {
+    button:hover {
+      background-color: #ff9900;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: #888;
+      margin-top: 10px;
       display: none;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red; }
+      20% { text-shadow: -2px 0 lime; }
+      40% { text-shadow: 2px 2px blue; }
+      60% { text-shadow: -2px -2px red; }
+      80% { text-shadow: 2px -2px lime; }
+      100% { text-shadow: -2px 2px blue; }
     }
   </style>
 </head>
 <body>
-  <h1>ᗩ ᐯY ᗪᑌᗰᗩᒪI,<br>ᑕᕼTO Yᗩ ᑎE ᗷᑌᗪᑌ IZᗪEᐯᗩTSYᗩ?)</h1>
-  <div>Реши уравнение: <br><strong>log<sub>2</sub>(x² − 5x + 6) = 1</strong></div>
-  <input type="text" id="answer" placeholder="Твой ответ...">
+  <h1>ᗩ ᐯY ᗪᑌᗰᗩᒪI, ᑕᕼTO Yᗩ ᑎE ᗷᑌᗪᑌ IZᗪEᐯᗩTSYᗩ?)</h1>
+  <div class="equation">log₂(x² − 5x + 4) = 1</div>
+
+  <input type="text" id="answer" placeholder="Ваш ответ" />
+  <button id="submitBtn">Проверить</button>
+
+  <p class="hint" id="hint">💡 Введите оба корня через пробел. Пример: <code>1 4</code></p>
 
   <audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2023/03/07/audio_37ba83e440.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/23/audio_7c5f020b3e.mp3?filename=dark-future-beat-amp-ambient-electronic-113751.mp3" type="audio/mpeg">
+    Ваш браузер не поддерживает аудио.
   </audio>
 
   <script>
-    document.getElementById("answer").addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        checkAnswer();
+    const correctAnswers = [["1", "4"], ["4", "1"]];
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const userInput = document.getElementById("answer").value.trim();
+      const cleanedInput = userInput.replace(/\s+/g, " ").split(" ");
+
+      let isCorrect = correctAnswers.some(
+        (pair) => cleanedInput.length === 2 &&
+                  cleanedInput.includes(pair[0]) &&
+                  cleanedInput.includes(pair[1])
+      );
+
+      if (isCorrect) {
+        window.location.href = "hack.html";
+      } else {
+        alert("Неправильный ответ. Попробуйте ещё раз.");
       }
     });
 
-    function checkAnswer() {
-      const input = document.getElementById("answer").value.trim();
-      const correctAnswers = ["3", "2", "2 и 3", "3 и 2", "2,3", "3,2", "2 3", "3 2"];
-
-      if (correctAnswers.includes(input)) {
-        window.location.href = "hack.html";
-      } else {
-        alert("Неверно! Подумай ещё...");
-      }
-    }
+    // Подсказка появляется через 5 минут
+    setTimeout(() => {
+      document.getElementById("hint").style.display = "block";
+    }, 5 * 60 * 1000);
   </script>
 </body>
 </html>
