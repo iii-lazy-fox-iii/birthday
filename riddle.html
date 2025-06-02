@@ -2,43 +2,61 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Реши, чтобы пройти дальше</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Логическая задачка</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: black;
-      color: #00FF00;
-      font-family: monospace;
-      padding: 20px;
+      margin: 0;
+      font-family: 'JetBrains Mono', monospace;
+      color: white;
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(-45deg, #1e3c72, #2a5298, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
     }
-    input, button {
-      font-size: 18px;
-      padding: 8px;
-      margin-top: 10px;
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    #result {
-      margin-top: 15px;
-      color: red;
+
+    h1 {
+      font-size: 2.5em;
+    }
+
+    .equation {
+      margin: 30px auto;
+      font-size: 1.5em;
+    }
+
+    .hint {
+      display: none;
+      margin-top: 40px;
+      font-style: italic;
+      font-size: 1.2em;
+      color: #ffd700;
     }
   </style>
 </head>
 <body>
-  <h2>🔐 Чтобы продолжить — реши уравнение:</h2>
-  <h3>(x - 3)<sup>2</sup> = 49</h3>
+  <h1>Реши уравнение, чтобы продолжить:</h1>
 
-  <input type="text" id="answer" placeholder="Введите x" />
-  <button onclick="check()">Проверить</button>
+  <div class="equation">
+    \log_2(x) + \log_2(x - 4) = 3
+  </div>
 
-  <p id="result"></p>
+  <div class="hint" id="hint">
+    Подсказка: сделай замену \log_2(x) = t. Тогда уравнение сведётся к квадратному.
+  </div>
 
   <script>
-    function check() {
-      const answer = document.getElementById("answer").value.trim();
-      if (answer === "10" || answer === "-4") {
-        window.location.href = "hack.html";
-      } else {
-        document.getElementById("result").innerText = "❌ Неверно, подумай ещё!";
-      }
-    }
+    // Показываем подсказку через 5 минут (300 000 мс)
+    setTimeout(() => {
+      document.getElementById('hint').style.display = 'block';
+    }, 300000);
   </script>
 </body>
 </html>
