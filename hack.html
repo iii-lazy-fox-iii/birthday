@@ -1,127 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Хакерский Взлом</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Взлом</title>
   <style>
     body {
+      margin: 0;
       background-color: black;
       color: #00ff00;
-      font-family: "Courier New", Courier, monospace;
-      white-space: pre-wrap;
-      padding: 20px;
+      font-family: monospace;
       overflow: hidden;
     }
 
-    #console {
-      height: 90vh;
-      overflow-y: auto;
+    .console {
+      white-space: pre;
+      padding: 20px;
+      font-size: 14px;
+      opacity: 0.8;
+      z-index: 1;
     }
 
-    #final-message {
-      display: none;
-      text-align: center;
-      margin-top: 50px;
-      font-size: 24px;
-      animation: blink 3s step-start infinite;
+    #hack-overlay {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
     }
 
-    #continue-btn {
-      display: none;
-      margin: 20px auto;
-      padding: 12px 24px;
-      background-color: transparent;
-      color: #00ff00;
-      border: 2px solid #00ff00;
-      cursor: pointer;
-      font-size: 18px;
-      animation: blink 3s step-start infinite;
+    #alert-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 80px;
+      color: red;
+      font-weight: bold;
+      animation: blink 1.5s infinite;
+      z-index: 2;
+      pointer-events: none;
+      text-shadow: 0 0 20px red;
     }
 
     @keyframes blink {
-      50% {
-        opacity: 0;
-      }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    #final-message {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: black;
+      height: 100vh;
+      text-align: center;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    #final-message h1 {
+      color: red;
+      animation: blink 2s infinite;
+    }
+
+    #final-message a {
+      color: orange;
+      font-size: 24px;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div id="console"></div>
-  <div id="final-message">
-    А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо? 😏<br>
-    Шутка. Я не изменяю своим принципам.<br>
-    Но если вы всё ещё здесь, может, дальше?
-  </div>
-  <button id="continue-btn" onclick="window.location.href='letter.html'">Перейти к письму</button>
+  <audio id="bg-hack" preload="auto" loop>
+    <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA..." type="audio/mp3">
+    Ваш браузер не поддерживает аудио.
+  </audio>
 
-  <!-- Звуки -->
-  <audio id="beep" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
-  <audio id="bg-hack" src="https://cdn.pixabay.com/download/audio/2022/03/31/audio_6a89e6f156.mp3?filename=glitch-106601.mp3" preload="auto" loop></audio>
-
-  <script>
-    const consoleEl = document.getElementById("console");
-    const beep = document.getElementById("beep");
-    const bgHack = document.getElementById("bg-hack");
-    const finalMessage = document.getElementById("final-message");
-    const continueBtn = document.getElementById("continue-btn");
-
-    // Настройка громкости
-    beep.volume = 0.2;
-    bgHack.volume = 0.1;
-
-    const lines = [
-      "C:\\Users\\LazyFox> tree",
-      "│",
-      "├── Documents",
-      "│   ├── Notes.txt",
-      "│   ├── Plans.pdf",
-      "│   └── Secrets",
-      "│       ├── passwords.docx",
-      "│       └── chats",
-      "│           ├── audio.log",
-      "│           ├── messages.txt",
-      "│           └── screenshots.zip",
-      "├── Pictures",
-      "│   ├── volleyball.jpg",
-      "│   ├── tattoos.png",
-      "│   └── hidden",
-      "│       └── coach_folder",
-      "├── System32",
-      "│   ├── core.dll",
-      "│   ├── virus?.exe",
-      "│   └── traced.log",
-      "│",
-      "🔍 Доступ к чатам, аудио и файлам получен.",
-      "⚠️ Подключение к внутренним системам...",
-      "💣 Обнаружено: защитное ПО. Обход...",
-      "✔️ Взлом успешен на 89%..."
-    ];
-
-    let i = 0;
-
-    function printLines() {
-      if (i < lines.length) {
-        consoleEl.innerHTML += lines[i] + "\n";
-        beep.play();
-        i++;
-        setTimeout(printLines, 400);
-      } else {
-        setTimeout(() => {
-          consoleEl.style.display = "none";
-          finalMessage.style.display = "block";
-          continueBtn.style.display = "block";
-        }, 2000);
-      }
-    }
-
-    // Автозапуск после загрузки
-    window.onload = () => {
-      bgHack.play().catch(() => {
-        // В случае блокировки автоплей браузером
-        console.warn("Пользователь должен разрешить звук вручную.");
-      });
-      printLines();
-    };
-  </script>
-</body>
-</html>
+  <div id="hack-overlay">
+    <div id="console" class="console"></div>
+    <div id="alert-text">ОПАСНОСТЬ</div>
