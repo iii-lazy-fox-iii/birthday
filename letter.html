@@ -17,23 +17,20 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
     }
 
     .container {
-      width: 80%;
       max-width: 800px;
-      white-space: pre-wrap;
-      line-height: 1.6;
-      border: 2px solid #fff;
       padding: 30px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
       background-color: #111;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
     .letter-text span {
       opacity: 0;
-      animation: fadeIn 1s forwards;
+      animation: fadeIn 0.4s forwards;
     }
 
     @keyframes fadeIn {
@@ -70,16 +67,15 @@
 С днём рождения ещё раз 🥳;
 
     const container = document.getElementById('letter');
-
     let delay = 0;
-    text.split('').forEach((char, i) => {
+
+    for (let char of text) {
       const span = document.createElement('span');
       span.textContent = char;
       span.style.animationDelay = ${delay}s;
       container.appendChild(span);
-
-      delay += (char === ' ' ? 0.01 : 0.03);
-    });
+      delay += (char === ' ' ? 0.002 : 0.02);
+    }
   </script>
 </body>
 </html>
