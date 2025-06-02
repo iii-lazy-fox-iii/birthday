@@ -2,64 +2,91 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>Хакерская атака</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Загрузка...</title>
   <style>
     body {
+      margin: 0;
       background-color: black;
       color: #00ff00;
-      font-family: "Courier New", Courier, monospace;
+      font-family: monospace;
+      font-size: 16px;
+      overflow: hidden;
+    }
+    #console {
+      white-space: pre-wrap;
       padding: 20px;
     }
-    .message {
-      white-space: pre-wrap;
-      font-size: 1.2em;
+    #finalText {
+      display: none;
+      text-align: center;
+      margin-top: 30px;
+      font-size: 20px;
+      animation: blink 1.2s step-start infinite;
+    }
+    #nextBtn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00ff00;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div id="message" class="message"></div>
-
+  <div id="console"></div>
+  <div id="finalText">
+    А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо 😏?<br><br>
+    Шутка, я не изменяю своим принципам, но если вы всё ещё здесь, то может дальше?)<br>
+    <button id="nextBtn" onclick="location.href='letter.html'">Перейти к письму</button>
+  </div>
+  <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
   <script>
     const lines = [
-      "А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо? 😏",
-      "",
-      "Шучу, я не изменяю своим принципам."
+      '> tree',
+      'C:\\',
+      '├── Users',
+      '│   ├── Lazy_Fox',
+      '│   │   ├── Documents',
+      '│   │   │   └── secrets.txt',
+      '│   │   └── Pictures',
+      '│   │       └── volleyball.png',
+      '├── Program Files',
+      '│   ├── ChatLogs',
+      '│   │   └── renata_secret.json',
+      '├── System32',
+      '',
+      '> dir /s',
+      '...\nДоступ к личным чатам разрешён...',
+      '...\nИзвлечение аудиофайлов завершено...',
+      '...\nВзлом успешен на 89%...'
     ];
 
-    let i = 0;
-    let el = document.getElementById("message");
+    const consoleEl = document.getElementById('console');
+    const beep = document.getElementById('beep');
 
-    function typeLine(line, callback) {
-      let j = 0;
-      function typeChar() {
-        if (j < line.length) {
-          el.textContent += line[j];
-          j++;
-          setTimeout(typeChar, 50);
-        } else {
-          el.textContent += "\n\n";
-          callback();
-        }
-      }
-      typeChar();
-    }
-
-    function nextLine() {
-      if (i < lines.length) {
-        typeLine(lines[i], () => {
-          i++;
-          setTimeout(nextLine, 700);
-        });
+    let index = 0;
+    function typeLine() {
+      if (index < lines.length) {
+        consoleEl.innerText += lines[index++] + "\n";
+        beep.play();
+        setTimeout(typeLine, 500);
       } else {
-        // Можно добавить переход на письмо или кнопку для продолжения
-        // Например, через 2 секунды перейти на страницу письма:
         setTimeout(() => {
-          window.location.href = "letter.html"; // или имя файла с письмом
-        }, 2000);
+          consoleEl.style.display = 'none';
+          document.getElementById('finalText').style.display = 'block';
+          document.getElementById('nextBtn').style.display = 'inline-block';
+        }, 1000);
       }
     }
 
-    nextLine();
+    typeLine();
   </script>
 </body>
 </html>
