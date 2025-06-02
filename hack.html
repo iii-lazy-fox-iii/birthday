@@ -1,92 +1,110 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Загрузка...</title>
+  <meta charset="UTF-8">
+  <title>Хакерский Взлом</title>
   <style>
     body {
-      margin: 0;
       background-color: black;
       color: #00ff00;
-      font-family: monospace;
-      font-size: 16px;
-      overflow: hidden;
-    }
-    #console {
+      font-family: "Courier New", Courier, monospace;
       white-space: pre-wrap;
       padding: 20px;
+      overflow: hidden;
     }
-    #finalText {
+
+    #console {
+      height: 90vh;
+      overflow-y: auto;
+      animation: typing 5s steps(40) infinite;
+    }
+
+    #final-message {
       display: none;
       text-align: center;
-      margin-top: 30px;
-      font-size: 20px;
-      animation: blink 1.2s step-start infinite;
+      margin-top: 50px;
+      font-size: 24px;
+      animation: blink 3s step-start infinite;
     }
-    #nextBtn {
+
+    #continue-btn {
       display: none;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #00ff00;
-      border: none;
-      font-weight: bold;
-      font-size: 16px;
+      margin: 20px auto;
+      padding: 12px 24px;
+      background-color: transparent;
+      color: #00ff00;
+      border: 2px solid #00ff00;
       cursor: pointer;
+      font-size: 18px;
+      animation: blink 3s step-start infinite;
     }
+
     @keyframes blink {
-      50% { opacity: 0; }
+      50% {
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div id="console"></div>
-  <div id="finalText">
-    А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо 😏?<br><br>
-    Шутка, я не изменяю своим принципам, но если вы всё ещё здесь, то может дальше?)<br>
-    <button id="nextBtn" onclick="location.href='letter.html'">Перейти к письму</button>
-  </div>
-  <audio id="beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+  <div id="final-message">А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо? 😏<br>Шутка. Я не изменяю своим принципам.<br>Но если вы всё ещё здесь, может, дальше?</div>
+  <button id="continue-btn" onclick="window.location.href='letter.html'">Перейти к письму</button>
+
+  <audio id="beep" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+
   <script>
+    const consoleEl = document.getElementById("console");
+    const beep = document.getElementById("beep");
+    const finalMessage = document.getElementById("final-message");
+    const continueBtn = document.getElementById("continue-btn");
+
     const lines = [
-      '> tree',
-      'C:\\',
-      '├── Users',
-      '│   ├── Lazy_Fox',
-      '│   │   ├── Documents',
-      '│   │   │   └── secrets.txt',
-      '│   │   └── Pictures',
-      '│   │       └── volleyball.png',
-      '├── Program Files',
-      '│   ├── ChatLogs',
-      '│   │   └── renata_secret.json',
-      '├── System32',
-      '',
-      '> dir /s',
-      '...\nДоступ к личным чатам разрешён...',
-      '...\nИзвлечение аудиофайлов завершено...',
-      '...\nВзлом успешен на 89%...'
+      "C:\\Users\\LazyFox> tree",
+      "│",
+      "├── Documents",
+      "│   ├── Notes.txt",
+      "│   ├── Plans.pdf",
+      "│   └── Secrets",
+      "│       ├── passwords.docx",
+      "│       └── chats",
+      "│           ├── audio.log",
+      "│           ├── messages.txt",
+      "│           └── screenshots.zip",
+      "├── Pictures",
+      "│   ├── volleyball.jpg",
+      "│   ├── tattoos.png",
+      "│   └── hidden",
+      "│       └── coach_folder",
+      "├── System32",
+      "│   ├── core.dll",
+      "│   ├── virus?.exe",
+      "│   └── traced.log",
+      "│",
+      "🔍 Доступ к чатам, аудио и файлам получен.",
+      "⚠️ Подключение к внутренним системам...",
+      "💣 Обнаружено: защитное ПО. Обход...",
+      "✔️ Взлом успешен на 89%..."
     ];
 
-    const consoleEl = document.getElementById('console');
-    const beep = document.getElementById('beep');
+    let i = 0;
 
-    let index = 0;
-    function typeLine() {
-      if (index < lines.length) {
-        consoleEl.innerText += lines[index++] + "\n";
+    function printLines() {
+      if (i < lines.length) {
+        consoleEl.innerHTML += lines[i] + "\n";
         beep.play();
-        setTimeout(typeLine, 500);
+        i++;
+        setTimeout(printLines, 400); // скорость вывода
       } else {
         setTimeout(() => {
-          consoleEl.style.display = 'none';
-          document.getElementById('finalText').style.display = 'block';
-          document.getElementById('nextBtn').style.display = 'inline-block';
-        }, 1000);
+          consoleEl.innerHTML = "";
+          finalMessage.style.display = "block";
+          continueBtn.style.display = "block";
+        }, 2000);
       }
     }
 
-    typeLine();
+    printLines();
   </script>
 </body>
 </html>
