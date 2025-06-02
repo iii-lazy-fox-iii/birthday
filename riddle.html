@@ -2,35 +2,27 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Загадка</title>
   <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      padding: 0;
       background-color: #0d0d0d;
-      font-family: 'Jolly Lodger', cursive;
       color: orange;
+      font-family: 'Jolly Lodger', cursive;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       height: 100vh;
       text-align: center;
+      margin: 0;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 2.5rem;
-      margin: 0 1rem;
-      max-width: 90vw;
-      word-wrap: break-word;
-    }
-
-    .equation {
-      font-size: 1.8rem;
-      margin-top: 1rem;
-      max-width: 90vw;
+      margin-bottom: 2rem;
+      max-width: 90%;
       word-wrap: break-word;
     }
 
@@ -38,35 +30,53 @@
       margin-top: 2rem;
       padding: 0.5rem 1rem;
       font-size: 1.2rem;
+      width: 300px;
       border: none;
       border-radius: 8px;
       background-color: #1a1a1a;
       color: orange;
       text-align: center;
       font-family: 'Jolly Lodger', cursive;
+      animation: pulse 2s infinite;
     }
 
-    .hint {
-      margin-top: 2rem;
-      font-size: 1.2rem;
-      color: gray;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0px orange; }
+      50% { box-shadow: 0 0 10px orange; }
+      100% { box-shadow: 0 0 0px orange; }
+    }
+
+    audio {
       display: none;
     }
   </style>
 </head>
 <body>
-  <h1>ᗩ ᐯY ᗪᑌᗰᗩᒪI, ᑕᕼTO Yᗩ ᑎE ᗷᑌᗪᑌ IZᗪEᐯᗩTSYᗩ?)</h1>
-  <div class="equation">log₄(x² - 5x + 6) = 1</div>
-  <input type="text" placeholder="Введите ответ" id="answer" />
+  <h1>ᗩ ᐯY ᗪᑌᗰᗩᒪI,<br>ᑕᕼTO Yᗩ ᑎE ᗷᑌᗪᑌ IZᗪEᐯᗩTSYᗩ?)</h1>
+  <div>Реши уравнение: <br><strong>log<sub>2</sub>(x² − 5x + 6) = 1</strong></div>
+  <input type="text" id="answer" placeholder="Твой ответ...">
 
-  <div class="hint" id="hint">
-    Подсказка: разложи многочлен на множители и реши через замену 😉
-  </div>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/07/audio_37ba83e440.mp3" type="audio/mpeg">
+  </audio>
 
   <script>
-    setTimeout(() => {
-      document.getElementById("hint").style.display = "block";
-    }, 5 * 60 * 1000); // 5 минут
+    document.getElementById("answer").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        checkAnswer();
+      }
+    });
+
+    function checkAnswer() {
+      const input = document.getElementById("answer").value.trim();
+      const correctAnswers = ["3", "2", "2 и 3", "3 и 2", "2,3", "3,2", "2 3", "3 2"];
+
+      if (correctAnswers.includes(input)) {
+        window.location.href = "hack.html";
+      } else {
+        alert("Неверно! Подумай ещё...");
+      }
+    }
   </script>
 </body>
 </html>
