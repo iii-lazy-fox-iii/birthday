@@ -2,90 +2,107 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Взлом</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Взлом...</title>
   <style>
     body {
-      margin: 0;
       background-color: black;
       color: #00ff00;
       font-family: monospace;
+      padding: 20px;
       overflow: hidden;
     }
 
-    .console {
-      white-space: pre;
-      padding: 20px;
-      font-size: 14px;
-      opacity: 0.8;
-      z-index: 1;
+    #console {
+      white-space: pre-wrap;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
-    #hack-overlay {
-      position: relative;
-      height: 100vh;
-      width: 100vw;
+    #finalMessage {
+      display: none;
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1.5em;
+      animation: blink 2s infinite;
     }
 
-    #alert-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 80px;
-      color: red;
-      font-weight: bold;
-      animation: blink 1.5s infinite;
-      z-index: 2;
-      pointer-events: none;
-      text-shadow: 0 0 20px red;
+    #nextBtn {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #00ff00;
+      color: black;
+      border: none;
+      cursor: pointer;
     }
 
     @keyframes blink {
       0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    #final-message {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      background: black;
-      height: 100vh;
-      text-align: center;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    #final-message h1 {
-      color: red;
-      animation: blink 2s infinite;
-    }
-
-    #final-message a {
-      color: orange;
-      font-size: 24px;
-      text-decoration: none;
-      margin-top: 20px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      50% { opacity: 0.3; }
     }
   </style>
 </head>
 <body>
-  <audio id="bg-hack" preload="auto" loop>
-    <source src="data:audio/mp3;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCA..." type="audio/mp3">
+  <audio id="hackSound" autoplay>
+    <source src="https://cdn.pixabay.com/audio/2022/03/16/audio_3c3fc99887.mp3" type="audio/mpeg">
     Ваш браузер не поддерживает аудио.
   </audio>
 
-  <div id="hack-overlay">
-    <div id="console" class="console"></div>
-    <div id="alert-text">ОПАСНОСТЬ</div>
+  <div id="console"></div>
+  <div id="finalMessage">
+    А вам разве не говорили, что переходить по незнакомым ссылкам нехорошо 😏?<br>
+    Шутка, я не изменяю своим принципам, но если вы всё ещё здесь, то может дальше?)
+  </div>
+  <div style="text-align: center">
+    <button id="nextBtn" onclick="location.href='letter.html'">К письму</button>
+  </div>
+
+  <script>
+    const consoleEl = document.getElementById('console');
+    const finalMessage = document.getElementById('finalMessage');
+    const nextBtn = document.getElementById('nextBtn');
+    const sound = document.getElementById('hackSound');
+
+    const fakeOutput = [
+      'C:\\Users\\User> tree',
+      '|   secret_logs',
+      '|   chats',
+      '|   passwords.txt',
+      '|   audio_files',
+      '|   videos',
+      '|   documents',
+      '|   backup_2024.zip',
+      '|',
+      'Получен доступ к: чатам',
+      'Получен доступ к: аудио',
+      'Получен доступ к: архивам',
+      '...',
+      '...',
+      'Взлом успешен на 89%...'
+    ];
+
+    let index = 0;
+
+    function typeLine() {
+      if (index < fakeOutput.length) {
+        consoleEl.textContent += fakeOutput[index] + '\n';
+        index++;
+        setTimeout(typeLine, 500);
+      } else {
+        setTimeout(() => {
+          consoleEl.style.display = 'none';
+          finalMessage.style.display = 'block';
+          nextBtn.style.display = 'inline-block';
+        }, 2000);
+      }
+    }
+
+    window.onload = () => {
+      sound.play();
+      typeLine();
+    };
+  </script>
+</body>
+</html>
