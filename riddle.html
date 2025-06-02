@@ -6,75 +6,74 @@
   <title>Уравнение</title>
   <link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      color: orange;
-      font-family: "Jolly Lodger", cursive;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      overflow: hidden;
-    }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: orange;
+    font-family: "Jolly Lodger", cursive;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+  }
 
-    h1 {
-      font-size: 48px;
-      margin: 20px;
-      animation: glitch 1s infinite;
-    }
+  h1 {
+    font-size: 48px;
+    margin: 20px;
+    animation: glitch 4s infinite ease-in-out;
+  }
 
-    .equation {
-      font-size: 32px;
-      margin: 20px;
-      animation: glitch 1.5s infinite;
-    }
+  .equation {
+    font-size: 32px;
+    margin: 20px;
+    animation: glitch 4s infinite ease-in-out;
+  }
 
-    input[type="text"] {
-      padding: 10px;
-      font-size: 20px;
-      border: 2px solid orange;
-      background-color: #111;
-      color: orange;
-      border-radius: 5px;
-      width: 220px;
-      text-align: center;
-    }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid orange;
+    background-color: #111;
+    color: orange;
+    border-radius: 5px;
+    width: 220px;
+    text-align: center;
+  }
 
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 20px;
-      background-color: orange;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: orange;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 
-    button:hover {
-      background-color: #ff9900;
-    }
+  button:hover {
+    background-color: #ff9900;
+  }
 
-    .hint {
-      font-size: 14px;
-      color: #888;
-      margin-top: 10px;
-      display: none;
-    }
+  .hint {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+    display: none;
+  }
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 red; }
-      20% { text-shadow: -2px 0 lime; }
-      40% { text-shadow: 2px 2px blue; }
-      60% { text-shadow: -2px -2px red; }
-      80% { text-shadow: 2px -2px lime; }
-      100% { text-shadow: -2px 2px blue; }
-    }
-  </style>
+  @keyframes glitch {
+    0% { text-shadow: 1px 0 red; }
+    25% { text-shadow: -1px 1px lime; }
+    50% { text-shadow: 1px -1px blue; }
+    75% { text-shadow: -1px -1px orange; }
+    100% { text-shadow: 1px 1px red; }
+  }
+</style>
 </head>
 <body>
   <h1>ᗩ ᐯY ᗪᑌᗰᗩᒪI, ᑕᕼTO Yᗩ ᑎE ᗷᑌᗪᑌ IZᗪEᐯᗩTSYᗩ?)</h1>
